@@ -1,0 +1,41 @@
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\BitmapNoise.exe
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\BitmapNoise.deps.json
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\BitmapNoise.runtimeconfig.json
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\BitmapNoise.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\BitmapNoise.pdb
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\System.Drawing.Common.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\System.Private.Windows.Core.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.csproj.AssemblyReference.cache
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.AssemblyInfoInputs.cache
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.AssemblyInfo.cs
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.csproj.CoreCompileInputs.cache
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNo.E78BF23A.Up2Date
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\refint\BitmapNoise.dll
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.pdb
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\BitmapNoise.genruntimeconfig.cache
+c:\Users\vboxuser\Desktop\CSharp-August\BitmapNoise\obj\Debug\net9.0\ref\BitmapNoise.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\BitmapNoise.exe
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\BitmapNoise.deps.json
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\BitmapNoise.runtimeconfig.json
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\BitmapNoise.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\BitmapNoise.pdb
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\System.Private.Windows.Core.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.csproj.AssemblyReference.cache
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.AssemblyInfoInputs.cache
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.AssemblyInfo.cs
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.csproj.CoreCompileInputs.cache
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNo.E78BF23A.Up2Date
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\refint\BitmapNoise.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.pdb
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.genruntimeconfig.cache
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\ref\BitmapNoise.dll
+C:\Users\AugustJansson\OneDrive - Nohau Solutions AB\Dokument\GitHub\ObjectAssimilation\BitmapNoise\obj\Debug\net9.0\BitmapNoise.sourcelink.json

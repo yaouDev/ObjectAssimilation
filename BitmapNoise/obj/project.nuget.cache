@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WyTSyPixAAI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AugustJansson\\OneDrive - Nohau Solutions AB\\Dokument\\GitHub\\ObjectAssimilation\\BitmapNoise\\BitmapNoise.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AugustJansson\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.1\\microsoft.win32.systemevents.9.0.1.nupkg.sha512",
+    "C:\\Users\\AugustJansson\\.nuget\\packages\\system.drawing.common\\9.0.1\\system.drawing.common.9.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
