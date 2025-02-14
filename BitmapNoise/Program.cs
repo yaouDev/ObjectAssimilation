@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.CompilerServices;
 
 /* Bitmap logic
     [-1, -1][0, -1][1, -1]
@@ -11,11 +8,13 @@ using System.Runtime.CompilerServices;
     [-1, 1] [0, 1] [1, 1]
 */
 
+//Fails to push as ignored is not properly ignored....
+
 class Program
 {
 
     private static Bitmap latest;
-    private HashSet<GridCore> cores;
+    private List<GridCore> cores;
     private int latestWidth;
     private int latestHeight;
     private static int IterationCounter;
@@ -23,9 +22,13 @@ class Program
     private int currID = 0;
     private bool generated;
     private bool debug;
+    private GifMaker gm = new GifMaker();
 
     //--- For console prompt
     private bool shouldLoad;
+    private bool experimental;
+    private int dominantModulo = 100;
+    private bool emergencyBreak;
     //---
 
     public static void Main(string[] args)
@@ -39,9 +42,8 @@ class Program
         // var info = ConsolePrompt();
         var info = CodePrompt();
 
-        var bmps = StartIteration(info.Item1, info.Item2, false);
-        var gm = new GifMaker();
-        gm.ImageInfo(bmps, currID);
+        StartIteration(info.Item1, info.Item2, false);
+
         Console.WriteLine("FINISHED!");
         Console.ReadLine();
     }
@@ -51,14 +53,16 @@ class Program
         //GenerateBitmap(500, 500, [Color.RoyalBlue, Color.Beige, Color.MediumSeaGreen], true); //islands
         //GenerateBitmap(2500, 2500, GetLimitedColors(4), false); //curr implementation, range 4: 55...? seconds per "chance"
         GenerateBitmap(500, 500, GetLimitedColors(12), true);
-        //GenerateBitmap(500, 500, [Color.Black, Color.White], false);
+        //GenerateBitmap(500, 500, GetLimitedColors(6), false);
+        //GenerateBitmap(100, 100, [Color.Black, Color.White], false);
         //Load("bullfinch.jpg");
         //Load("treesparrow.jpg");
+        //GenerateBitmap(500, 500, LoadColorPool("sword.jpg").ToArray(), false);
 
         debug = true;
 
-        int neighborRange = 25;
-        int iterations = 250;
+        int neighborRange = 2;
+        int iterations = 500;
         return new Tuple<int, int>(iterations, neighborRange);
     }
 
@@ -161,6 +165,14 @@ class Program
         Console.Write("Neighbor Range (radius in pixels) >");
         int range = Int32.Parse(Read());
 
+        Console.Write("Use experimental variations? (y/n) >");
+        experimental = Read() == "y";
+        if (experimental)
+        {
+            Console.Write("Enter n-th time an experimental should be generated >");
+            dominantModulo = Int32.Parse(Read());
+        }
+
         return new Tuple<int, int>(iterations, range);
     }
 
@@ -184,7 +196,7 @@ class Program
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan totalTime = new TimeSpan();
         stopWatch.Start();
-        ColorMode colorMode = ColorMode.Chance;
+        ColorMode colorMode;
         bool isIterated = iterations > 0;
         List<Bitmap> bitmaps = new List<Bitmap>();
 
@@ -197,11 +209,13 @@ class Program
             totalTime = stopWatch.Elapsed;
         }
 
-        while (iterations > 0)
+        while (iterations > 0 && !emergencyBreak)
         {
             //--- Additional reshaping
-            // if (IterationCounter % 2 == 0 || iterations == 1) colorMode = ColorMode.Chance;
-            // else colorMode = ColorMode.Random; //every other iteration scrambles the edges
+            if (IterationCounter % 3 == 0 && iterations != 1) colorMode = ColorMode.Random;
+            else if (experimental && IterationCounter % dominantModulo == 0) colorMode = ColorMode.Dominant; //does it work?
+            else colorMode = ColorMode.Chance; //this will work as a default color mode
+            //Console.WriteLine("Color mode is: " + colorMode);
             //---
 
             Bitmap iter = IterateBitmap(colorMode, saveIterations);
@@ -212,14 +226,18 @@ class Program
             iterations--;
         }
 
+        if (debug) Console.WriteLine("Generating animation...");
+        gm.Create(bitmaps, currID, true);
+
         if (isIterated)
         {
+            if (debug) Console.WriteLine("Cleaning up image...");
             Save(latest, "pre-cleanup");
             if (neighborRange > 1)
             {
                 InitalizeCores(1);
             }
-            IterateBitmap(ColorMode.Dominant); //clean the edges - CURRENTLY BROKEN: prioritizes diagonals for some reason
+            IterateBitmap(ColorMode.Dominant, false, "_cleaning", true);
 
             Console.WriteLine("Clean up took: " + (stopWatch.Elapsed - totalTime));
         }
@@ -228,6 +246,7 @@ class Program
             Console.WriteLine("Image was not cleaned as it was not iterated");
         }
 
+        totalTime = stopWatch.Elapsed;
         Console.WriteLine("Total time: " + totalTime);
         stopWatch.Stop();
 
@@ -251,7 +270,7 @@ class Program
         Console.WriteLine("Loaded " + path + " at " + latestWidth + " x " + latestHeight);
     }
 
-    private List<Color> LoadColorPool(string path, int bounds)
+    private List<Color> LoadColorPool(string path, int maxLimit = Int32.MaxValue)
     {
         string file = "./Load/" + path;
         Bitmap poolSrc = (Bitmap)Bitmap.FromFile(file);
@@ -263,7 +282,7 @@ class Program
                 Color color = poolSrc.GetPixel(x, y);
                 if (!pool.Contains(color))
                 {
-                    if (pool.Count > bounds) break;
+                    if (pool.Count > maxLimit) break;
                     pool.Add(color);
                     if (debug)
                     {
@@ -280,14 +299,14 @@ class Program
     {
         if (cores == null)
         {
-            cores = new HashSet<GridCore>();
+            cores = new List<GridCore>();
         }
 
-        if(clear && cores.Count > 0) cores.Clear();
+        if (clear && cores.Count > 0) cores.Clear();
 
         GridCore[,] grid = new GridCore[latestWidth, latestHeight];
 
-        if (debug) Console.WriteLine("Cores to iterate: " + (latestWidth * latestHeight) * (radius * radius));
+        if (debug) Console.WriteLine("Cores to iterate: " + (latestWidth * latestHeight) * (radius * radius)); // ((radius * radius) + 1) ??? doesnt match frames
 
         for (int x = 0; x < latestWidth; x++)
         {
@@ -304,14 +323,11 @@ class Program
             Parallel.For(0, latestHeight, y =>
             {
                 SetCoreNeighbors(grid[x, y], grid, radius, clear);
-                // cores.Add(grid[x, y]);
             });
         });
 
-
         foreach (var core in grid)
         {
-            // SetCoreNeighbors(core, grid, radius, clear);
             cores.Add(core);
         }
     }
@@ -332,18 +348,50 @@ class Program
         }
     }
 
-    private Bitmap IterateBitmap(ColorMode colorMode, bool save = false, string prepend = "")
+    private Bitmap IterateBitmap(ColorMode colorMode, bool save = false, string prepend = "", bool clean = false, bool generateAnimation = false) //generateAnimation is very slow on large maps
     {
         Bitmap result = new Bitmap(latest);
+        List<Bitmap> bmps = new List<Bitmap>();
 
+        Color? check = null;
+        emergencyBreak = true; //turn off if other color is found
         foreach (var core in cores)
         {
-            core.ColorPicker(colorMode, true);
-            result.SetPixel(core.x, core.y, (Color)core.color);
+            Color curr = core.ColorPicker(colorMode, false);
+            if(check == null) check = curr;
+            else if (emergencyBreak && check != curr) emergencyBreak = false;
         }
 
-        IterationCounter++;
-        if (save) Save(result, prepend + "iteration_" + IterationCounter);
+        if (!emergencyBreak)
+        {
+            if (debug && clean) Console.WriteLine("Setting cached colors...");
+            foreach (var core in cores)
+            {
+                if (core.cachedColor != null)
+                {
+                    core.SetColor(Color.FromArgb((int)core.cachedColor));
+                    result.SetPixel(core.x, core.y, (Color)core.color);
+                    if (generateAnimation) // very, very slow as to not store too much in memory
+                    {
+                        bmps.Add(result);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Cached color was null in core {core.x}, {core.y}");
+                }
+            }
+
+            if (generateAnimation)
+            {
+                Console.WriteLine($"Generating iteration/clean up animation from {bmps.Count} frames");
+                gm.Create(bmps, currID, true, prepend);
+            }
+
+            IterationCounter++;
+            if (save) Save(result, prepend + "iteration_" + IterationCounter);
+        }
+        else Console.WriteLine($"WARNING: iterations stopped during iteration {IterationCounter + 1} as only one color remained");
 
         latest = result;
         return result;

@@ -8,6 +8,7 @@ public class GridCore
 
     public HashSet<GridCore> neighbors { get; private set; } = new HashSet<GridCore>();
     private static Random rnd = new Random();
+    public int? cachedColor {get; private set; } = null;
 
     public GridCore(int x, int y, Color color)
     {
@@ -34,6 +35,10 @@ public class GridCore
     public void SetColor(Color color)
     {
         this.color = color;
+        if(cachedColor != null && color != Color.FromArgb((int)cachedColor)){
+            Console.WriteLine("WARNING: Overrode cached core color!");
+        }
+        cachedColor = null;
     }
 
     public Color ColorPicker(ColorMode colorMode, bool set = true)
@@ -66,7 +71,12 @@ public class GridCore
 
 
         if (result == null) Console.WriteLine("ERROR: Color was null");
-        else if (set) SetColor((Color)result);
+        
+        if (set) SetColor((Color)result);
+        else{
+            Color resultColor = (Color)result;
+            cachedColor ??= resultColor.ToArgb();
+        } 
 
         return result ?? Color.White;
     }
