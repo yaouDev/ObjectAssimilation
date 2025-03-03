@@ -13,12 +13,14 @@ public class GifMaker
 
         const int UintBytes = 4;
 
-    public void Create(List<Bitmap> Bitmaps, int id, bool normalSpeed = true, string nameAddition = "")
+    public void Create(List<Bitmap> Bitmaps, int id, int speed = 4, string nameAddition = "", int loopInf = 1) // 1 = loop once, 0 = forever
     {
         if(Bitmaps.Count < 1){
             Console.WriteLine("ERROR: Tried to create an empty GIF");
             return;
         }
+
+        Console.WriteLine("Generating animation: " + id + nameAddition + "_animation.gif");
 
         var gifEncoder = GetEncoder(ImageFormat.Gif);
         // Params of the first frame.
@@ -41,7 +43,6 @@ public class GifMaker
         // Every entry is the frame delay in 1/100-s of a second, in little endian.
         frameDelay.Value = new byte[Bitmaps.Count * UintBytes];
         // E.g., here, we're setting the delay of every frame to 1 second. # 100 = 1 second
-        int speed = normalSpeed ? 4 : 1;
         var frameDelayBytes = BitConverter.GetBytes((uint)speed);
         for (int j = 0; j < Bitmaps.Count; ++j)
             Array.Copy(frameDelayBytes, 0, frameDelay.Value, j * UintBytes, UintBytes);
@@ -50,7 +51,7 @@ public class GifMaker
         var loopPropertyItem = (PropertyItem)FormatterServices.GetUninitializedObject(typeof(PropertyItem));
         loopPropertyItem.Id = PropertyTagLoopCount;
         loopPropertyItem.Type = PropertyTagTypeShort;
-        loopPropertyItem.Len = 1;
+        loopPropertyItem.Len = loopInf;
         // 0 means to animate forever.
         loopPropertyItem.Value = BitConverter.GetBytes((ushort)0);
 
