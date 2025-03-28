@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BitmapNoise")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8b3a5475aed77d62be9d99d31a3e201ebaac02e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9891668e90c02a05a3c3da1df5edd56f44eda4c3")]
 [assembly: System.Reflection.AssemblyProductAttribute("BitmapNoise")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BitmapNoise")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

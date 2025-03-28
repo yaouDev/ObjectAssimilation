@@ -55,7 +55,7 @@ class Program
         //image.GenerateBitmap(250, 250, image.GetLimitedColors(8), true);
         // image.GenerateBitmap(100, 100, image.GetLimitedColors(5, true), false);
         // image.GenerateBitmap(100, 100, image.GetLimitedColors(6), false);
-        image.GenerateBitmap(250, 250, [Color.FromArgb(0, 0, 0, 0), Color.Red, Color.Blue, Color.Green], false); //ARGB
+        //image.GenerateBitmap(250, 250, [Color.FromArgb(0, 0, 0, 0), Color.Red, Color.Blue, Color.Green], false); //ARGB
         // image.GenerateBitmap(100, 100, [Color.Cyan, Color.Magenta, Color.Yellow, Color.Black], false); //CMYK
         // image.GenerateBitmap(100, 100, [Color.Black, Color.White], false);
         //image.GenerateBitmap(750, 750, image.GetLimitedColors(6), false);
@@ -63,15 +63,16 @@ class Program
         //Load("treesparrow.jpg");
         //image.Load("sword.jpg");
         //image.Load("commonswift.jpg");
-        // image.Load("mountain_bluebird.jpg");
+        image.Load("mountain_bluebird.jpg");
         // image.GenerateBitmap(250, 250, image.LoadColorPool("sword.jpg", int.MaxValue, true).ToArray(), false);
         // image.GenerateBitmap(250, 250, image.LoadColorPool("commonswift.jpg", int.MaxValue, true).ToArray(), false);
         //GenerateBitmap(500, 500, LoadColorPool("bullfinch.jpg", 12, true).ToArray(), true);
 
-        int range = 2;
+        int range = 1;
         image.AddIterations(250);
         // image.StartIteration(AssimilationAlgorithm.Chain, range, false, false);
-        image.StartIteration(AssimilationAlgorithm.Random, range, false, false);
+        //image.StartIteration(AssimilationAlgorithm.Random, range, false, false);
+        image.HandleEffect(Effect.NoisedBlackAndWhite);
         // image.StartIteration(AssimilationAlgorithm.None, range, false, false, ColorMode.Fade);
         // image.StartIteration(AssimilationAlgorithm.None, range, false, false, ColorMode.Unique);
         //image.Log();
@@ -98,6 +99,7 @@ class Program
                                 "8. Revert cache x steps",
                                 "9. Set cache to original",
                                 "A. Print cache",
+                                "B. Effects",
                                 "0. Quit");
             Console.Write(">");
 
@@ -191,6 +193,12 @@ class Program
                 case "a": //print
                     if(CheckCache()){
                         curr.SaveLatest();
+                    }
+                    break;
+                case "b":
+                    if(CheckCache()){
+                        Effect effect = ChooseEnum<Effect>();
+                        curr.HandleEffect(effect);
                     }
                     break;
                 default:

@@ -38,7 +38,10 @@ public class GridCore
     }
 
     public void ScrambleNeighbors(){
-        if(neighbors.Count <= 1) Console.WriteLine("WARNING: skipping scrambling as neighbor count was not high enough");
+        if(neighbors.Count <= 1) {
+            Console.WriteLine("WARNING: skipping scrambling as neighbor count was not high enough");
+            return;
+        }
 
         neighbors = neighbors.OrderBy(x => rnd.Next(neighbors.Count)).ToHashSet();
     }
@@ -49,6 +52,10 @@ public class GridCore
         else Console.WriteLine($"Nothing to clean in core {x}, {y}");
     }
 
+    public void ClearCache(){
+        cachedColor = null;
+    }
+
     public void SetColor(Color color, bool addToHistory = true)
     {
         this.color = color;
@@ -56,7 +63,7 @@ public class GridCore
         {
             Console.WriteLine("WARNING: Overrode cached core color!");
         }
-        cachedColor = null;
+        ClearCache();
         if (addToHistory) AddHistory(color.ToArgb());
     }
 
@@ -136,6 +143,11 @@ public class GridCore
                 break;
             case ColorMode.EveryOther: //may stall if done too often
                 if(x % 2 == 0 && y % 2 == 0) result = g.First().Key;
+                break;
+            case ColorMode.Monochrome:
+                Color c = (Color)color;
+                if(c.R >= 127 && c.B >= 127 && c.G >= 127) result = Color.White;
+                else result = Color.Black;
                 break;
             default:
                 break;
@@ -296,5 +308,5 @@ public class GridCore
 
 public enum ColorMode
 {
-    Dominant, Chance, Random, Strength, Similar, Historic, Minority, Fade, Unique, EveryOther
+    Dominant, Chance, Random, Strength, Similar, Historic, Minority, Fade, Unique, EveryOther, Monochrome
 }

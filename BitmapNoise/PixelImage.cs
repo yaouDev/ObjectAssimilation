@@ -401,7 +401,7 @@ public class PixelImage
     }
 
     public void InitalizeCores(int radius, bool clear = true, bool debug = false)
-    {
+    { //radius can be removed as its always equals to neighborRange...
         if (cores == null)
         {
             cores = new List<GridCore>();
@@ -436,7 +436,7 @@ public class PixelImage
 
         foreach (var core in grid)
         {
-            core.ScrambleNeighbors(); // makes the neighbors unordered, adds radomization
+            core.ScrambleNeighbors(); // makes the neighbors unordered, adds randomization
             cores.Add(core);
         }
     }
@@ -601,6 +601,14 @@ public class PixelImage
         BuildLatest();
     }
 
+    public void HandleEffect(Effect effect){
+        if(neighborRange <= 0) neighborRange = 1;
+        InitalizeCores(neighborRange);
+        EffectHandler.HandleEffect(effect, cores);
+        BuildLatest();
+        Save(latest, $"{effect}");
+    }
+
     public override string ToString()
     {
         string result = $"---Image {uID}---\nGenerated: {generated}\nDebug: {debug}\nGenerate Animation: {generateAnimation}\nSave Iterations: {saveIterations}\nNeighbor Range: {neighborRange}\n";
@@ -613,4 +621,9 @@ public class PixelImage
 public enum AssimilationAlgorithm
 {
     Random, Chain, Modulo, None
+}
+
+public enum Effect
+{
+    NoisedBlackAndWhite
 }
